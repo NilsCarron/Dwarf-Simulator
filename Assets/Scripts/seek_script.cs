@@ -31,7 +31,7 @@ public class seek_script : MonoBehaviour
     
     private void OnDestroy()
     {
-        DestroyImmediate(bb.seekScript);
+        DestroyImmediate(bb.seekScript); 
     }
     
 
