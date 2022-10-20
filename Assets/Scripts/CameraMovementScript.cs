@@ -39,7 +39,6 @@ public class CameraMovementScript : MonoBehaviour
         float hsp = speed * Input.GetAxis("Horizontal");
         float vsp = speed * Input.GetAxis("Vertical");
         float scrollSp = -zoomSpeed * Input.GetAxis("Mouse ScrollWheel");
-        Debug.Log(scrollSp);
         
         
         if((transform.position.y + scrollSp) > maxHeight)
@@ -75,14 +74,12 @@ public class CameraMovementScript : MonoBehaviour
     void getCameraRotation()
     {
         if (Input.GetMouseButtonDown(2)){
-            Debug.Log("dsdsdsd");
             p1 = Input.mousePosition;
 
         }
 
         if (Input.GetMouseButton(2))
         {
-            Debug.Log("dsds54654456456dsd");
 
             p2 = Input.mousePosition;
 

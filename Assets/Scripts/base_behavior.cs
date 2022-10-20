@@ -9,6 +9,7 @@ public class base_behavior : MonoBehaviour
 
     //links to the different behavior components
     public seek_script seek;
+    public wandering_script wandering;
 
 
     //gps is our general pathfinding script
@@ -19,8 +20,9 @@ public class base_behavior : MonoBehaviour
     public BoidCohesion boidcoh;
     public BoidSeparation boidsep;
     public Seek seekScript;
-    public Flee fleeScript;
-
+    public Wandering wanderingScript;
+    
+    
     public float maxSpeed;
 
     public GameObject target;
@@ -28,7 +30,7 @@ public class base_behavior : MonoBehaviour
 
     public enum UnitFSM //states
     {
-        Attack,
+       // Attack,
         Seek,
         Idle
     }
@@ -36,6 +38,10 @@ public class base_behavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (target == null)
+        {
+            target = gameObject;
+        }
         agentScript = gameObject.AddComponent<Agent>(); //add agent
         agentScript.maxSpeed = maxSpeed;
 
@@ -54,6 +60,7 @@ public class base_behavior : MonoBehaviour
             else
             {
                 changeState(UnitFSM.Idle);
+                
             }
         }
     }
@@ -67,25 +74,30 @@ public class base_behavior : MonoBehaviour
         {
             case UnitFSM.Idle:
 
+                
+                if (gameObject.GetComponent<wandering_script>() == null)
+                {
+                    wandering = gameObject.AddComponent<wandering_script>();
+                }
                 DestroyImmediate(seek);
 
                 break;
 
             case UnitFSM.Seek:
-
                 if (gameObject.GetComponent<seek_script>() == null)
                 {
                     seek = gameObject.AddComponent<seek_script>();
                 }
+                DestroyImmediate(wandering);
 
                 break;
 
-            case UnitFSM.Attack:
+          //  case UnitFSM.Attack:
 
 
-                DestroyImmediate(seek);
+            //    DestroyImmediate(seek);
 
-                break;
+              //  break;
 
 
 
