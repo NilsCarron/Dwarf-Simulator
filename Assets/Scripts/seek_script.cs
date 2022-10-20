@@ -20,6 +20,18 @@ public class seek_script : MonoBehaviour
             bb.seekScript.target = target;
             bb.seekScript.weight = 1.0f;
             bb.seekScript.enabled = true;
+            
+            
+            bb.boidcoh = gameObject.AddComponent<BoidCohesion>();
+            bb.boidcoh.targets = bb.target.GetComponent<squad_parent_script>().children;
+            bb.boidcoh.weight = 0.4f;
+            bb.boidcoh.enabled = true;
+            
+            bb.boidsep = gameObject.AddComponent<BoidSeparation>();
+            bb.boidsep.targets = bb.target.GetComponent<squad_parent_script>().children;
+            bb.boidsep.weight = 70.0f;
+            bb.boidsep.enabled = true;
+
 
             //bb.fleeScript = gameObject.AddComponent<Flee>();
             //bb.fleeScript.target = target;

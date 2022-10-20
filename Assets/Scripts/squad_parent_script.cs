@@ -32,7 +32,7 @@ public class squad_parent_script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += (target.transform.position - transform.position).normalized.normalized * Time.deltaTime * 5.0f;
+        transform.position += (target.transform.position - transform.position).normalized.normalized * (Time.deltaTime * 5.0f);
              
     }
 }

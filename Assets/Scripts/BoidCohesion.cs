@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class BoidCohesion: AgentBehavior
 {
     public float neighborDist = 15.0f;
     public List<GameObject> targets;
@@ -20,9 +20,18 @@ public class NewBehaviourScript : MonoBehaviour
                 {
                     steer.linear += other.transform.position;
                     count++;
-                    //https://youtu.be/H9eKQKo8Wxw?t=328
+                    
                 }
             }
         }
+
+        if (count > 0)
+        {
+            steer.linear /= count;
+            steer.linear += - transform.position;
+            
+        }
+
+        return steer;
     }
 }

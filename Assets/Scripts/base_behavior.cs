@@ -10,12 +10,14 @@ public class base_behavior : MonoBehaviour
     //links to the different behavior components
     public seek_script seek;
 
+
     //gps is our general pathfinding script
     //public general_pathfinding gps;
 
     //intelligent movement scripts
     public Agent agentScript;
-
+    public BoidCohesion boidcoh;
+    public BoidSeparation boidsep;
     public Seek seekScript;
     public Flee fleeScript;
 
@@ -37,7 +39,7 @@ public class base_behavior : MonoBehaviour
         agentScript = gameObject.AddComponent<Agent>(); //add agent
         agentScript.maxSpeed = maxSpeed;
 
-        changeState(UnitFSM.Idle);
+        changeState(UnitFSM.Seek);
     }
 
     // Update is called once per frame
