@@ -8,7 +8,7 @@ public class steering
     public Vector3 linear; //instantaneous velocity
     public steering()
     {
-        angular = 0.0f;
+        angular = 1.0f;
         linear = new Vector3();
     }
 }

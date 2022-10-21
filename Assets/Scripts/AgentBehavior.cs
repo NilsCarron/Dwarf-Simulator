@@ -23,7 +23,9 @@ public class AgentBehavior : MonoBehaviour
 
     public virtual void Update()
     {
+
         agent.SetSteering(GetSteering(), weight);
+
     }
 
     public float MapToRange(float rotation)

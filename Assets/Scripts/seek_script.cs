@@ -16,7 +16,6 @@ public class seek_script : MonoBehaviour
         
         if(bb.seekScript == null)
         {
-            Debug.Log("ésdFBIjk");
 
             bb.seekScript = gameObject.AddComponent<Seek>();
             bb.seekScript.target = target;
