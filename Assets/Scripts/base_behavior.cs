@@ -1,7 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
+public  enum UnitFSM //states
+{
+    // Attack,
+    Seek,
+    Idle,
+    GotoMine
+}
 public class base_behavior : MonoBehaviour
 {
 
@@ -10,6 +17,7 @@ public class base_behavior : MonoBehaviour
     //links to the different behavior components
     public seek_script seek;
     public wandering_script wandering;
+    public GoToMineScript goToMine;
 
 
     //gps is our general pathfinding script
@@ -21,19 +29,15 @@ public class base_behavior : MonoBehaviour
     public BoidSeparation boidsep;
     public Seek seekScript;
     public Wandering wanderingScript;
-    
+    public GoingToMine goingToMineScript;
+
     
     public float maxSpeed;
 
     public GameObject target;
     public UnitFSM state;
 
-    public enum UnitFSM //states
-    {
-       // Attack,
-        Seek,
-        Idle
-    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +49,7 @@ public class base_behavior : MonoBehaviour
         agentScript = gameObject.AddComponent<Agent>(); //add agent
         agentScript.maxSpeed = maxSpeed;
 
-        changeState(UnitFSM.Seek);
+        changeState(UnitFSM.Idle);
     }
 
     // Update is called once per frame
@@ -65,6 +69,9 @@ public class base_behavior : MonoBehaviour
         }
     }
 
+
+    
+    
     public void changeState(UnitFSM new_state)
     {
 
@@ -80,6 +87,20 @@ public class base_behavior : MonoBehaviour
                     wandering = gameObject.AddComponent<wandering_script>();
                 }
                 DestroyImmediate(seek);
+                DestroyImmediate(goToMine);
+
+
+                break;
+            case UnitFSM.GotoMine:
+
+                
+                if (gameObject.GetComponent<GoToMineScript>() == null)
+                {
+                    goToMine = gameObject.AddComponent<GoToMineScript>();
+                }
+                DestroyImmediate(seek);
+                DestroyImmediate(wandering);
+
 
                 break;
 
@@ -89,6 +110,8 @@ public class base_behavior : MonoBehaviour
                     seek = gameObject.AddComponent<seek_script>();
                 }
                 DestroyImmediate(wandering);
+                DestroyImmediate(goToMine);
+
 
                 break;
 

@@ -13,14 +13,10 @@ public class Agent : MonoBehaviour
     public Vector3 velocity;
     protected steering steer;
 
-    public float maxRotation = 45.0f;
-    public float maxAngularAccel = 45.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        transform.rotation = new Quaternion();
-
         velocity = Vector3.zero;
         steer = new steering();
         trueMaxSpeed = maxSpeed;
@@ -29,7 +25,7 @@ public class Agent : MonoBehaviour
     public void SetSteering(steering steer, float weight)
     {
         this.steer.linear += (weight * steer.linear);
-        this.steer.angular = (weight * 45 * steer.angular);
+        this.steer.angular += (weight * steer.angular);
     }
 
     // change the transform based off of the last frame's steering
@@ -38,7 +34,8 @@ public class Agent : MonoBehaviour
         Vector3 displacement = velocity * Time.deltaTime;
         displacement.y = 0;
 
-        orientation = rotation * Time.deltaTime;
+        orientation += rotation * Time.deltaTime;
+
         //limit orientation between 0 and 360
         if(orientation < 0.0f)
         {
@@ -48,16 +45,15 @@ public class Agent : MonoBehaviour
         {
             orientation -= 360.0f;
         }
-      
         transform.Translate(displacement, Space.World);
-        transform.Rotate(Vector3.up, orientation);
+        transform.LookAt(transform.position + displacement);
     }
 
     //update movement for the next frame
     public virtual void LateUpdate()
     {
         velocity += steer.linear * Time.deltaTime;
-        rotation = steer.angular  * Time.deltaTime;
+        rotation += steer.angular * Time.deltaTime;
         if(velocity.magnitude > maxSpeed)
         {
             velocity.Normalize();

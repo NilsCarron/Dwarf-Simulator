@@ -21,8 +21,9 @@ public class squad_parent_script : MonoBehaviour
 
         for(int index = 0; index < amoundOfChildrens; ++index)
         {
-            Vector3 relative_spawn = new Vector3(index % 4, 0.33f, index / 4);
-            GameObject temp = Instantiate(child_prefab, transform.position + (relative_spawn * 6.0f), transform.rotation);
+            Vector3 relative_spawn = new Vector3(UnityEngine.Random.Range(-150f, 150f),
+                transform.transform.position.y, UnityEngine.Random.Range(-150f, 150f));
+            GameObject temp = Instantiate(child_prefab, (transform.position + relative_spawn ), transform.rotation);
             temp.GetComponent<base_behavior>().target = gameObject;
             children.Add(temp);
         }

@@ -11,12 +11,15 @@ public class seek_script : MonoBehaviour
     void Start()
     {
         bb = gameObject.GetComponent<base_behavior>();
-        target = bb.target;
+        target = GameManager.Instance.Tavern;
 
-        
+        bb.boidcoh.enabled = false;
+
         if(bb.seekScript == null)
         {
 
+            
+            
             bb.seekScript = gameObject.AddComponent<Seek>();
             bb.seekScript.target = target;
             bb.seekScript.weight = 0.7f;
@@ -27,16 +30,16 @@ public class seek_script : MonoBehaviour
             {
                 bb.boidcoh = gameObject.AddComponent<BoidCohesion>();
                 bb.boidcoh.targets = bb.target.GetComponent<squad_parent_script>().children;
-                bb.boidcoh.weight = 0.4f;
-                bb.boidcoh.enabled = true;
+                bb.boidcoh.weight = 0.0f;
+                bb.boidcoh.enabled = false;
             }
 
             if (bb.boidsep == null)
             {
                 bb.boidsep = gameObject.AddComponent<BoidSeparation>();
                 bb.boidsep.targets = bb.target.GetComponent<squad_parent_script>().children;
-                bb.boidsep.weight = 70.0f;
-                bb.boidsep.enabled = true;
+                bb.boidsep.weight = 15f;
+                bb.boidsep.enabled = false;
             }
             
         }

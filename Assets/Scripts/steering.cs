@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
 public class steering
 {
-    public float angular; //rotation 0->360
-    public Vector3 linear; //instantaneous velocity
+    public float angular; //rotation 0-360
+    public Vector3 linear; //velocity
     public steering()
     {
-        angular = 1.0f;
+        angular = 0.0f;
         linear = new Vector3();
     }
 }

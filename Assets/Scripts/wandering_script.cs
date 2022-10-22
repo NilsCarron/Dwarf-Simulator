@@ -31,7 +31,7 @@ public class wandering_script : MonoBehaviour
             {
                 bb.boidcoh = gameObject.AddComponent<BoidCohesion>();
                 bb.boidcoh.targets = bb.target.GetComponent<squad_parent_script>().children;
-                bb.boidcoh.weight = 0.4f;
+                bb.boidcoh.weight = 7f;
                 bb.boidcoh.enabled = true;
             }
 
@@ -39,7 +39,7 @@ public class wandering_script : MonoBehaviour
             {
                 bb.boidsep = gameObject.AddComponent<BoidSeparation>();
                 bb.boidsep.targets = bb.target.GetComponent<squad_parent_script>().children;
-                bb.boidsep.weight = 70.0f;
+                bb.boidsep.weight = 15.0f;
                 bb.boidsep.enabled = true;
             }
 
@@ -61,10 +61,27 @@ public class wandering_script : MonoBehaviour
 
     private void UpdateTarget()
     {
+        Vector3 clampedVector;
+        clampedVector = new Vector3(UnityEngine.Random.Range(-200, 200) ,transform.transform.position.y, UnityEngine.Random.Range(-200, 200));
 
-        Random rnd = new Random();
+        if (clampedVector.x > 1500)
+            clampedVector.x -= 200;
+        else if (clampedVector.x < -1500)
+            clampedVector.x += + 200;
+        
+        if (clampedVector.y > 1500)
+            clampedVector.y -= 200;
+        else if (clampedVector.y < -1500)
+            clampedVector.y += 200;
+        
+        if (clampedVector.z > 1500)
+            clampedVector.z -=  200;
+        else if (clampedVector.z < -1500)
+            clampedVector.z +=  200;
 
-        target.transform.position = new Vector3(transform.position.x + rnd.Next(-50, 50),transform.position.y, transform.position.z + rnd.Next(-50, 50));
+
+
+        target.transform.position = clampedVector;
     }
 
 
