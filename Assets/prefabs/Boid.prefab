@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3563479339382369458}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.3, z: 0}
   m_LocalScale: {x: 3.0153, y: 3.0153, z: 3.0153}
   m_Children:
   - {fileID: 9070442676988511052}
@@ -98,7 +98,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &409404467825305832
 MonoBehaviour:
@@ -133,11 +133,18 @@ MonoBehaviour:
   team: 0
   seek: {fileID: 0}
   wandering: {fileID: 0}
+  goToMine: {fileID: 0}
+  vomiting: {fileID: 0}
+  fleeing: {fileID: 0}
   agentScript: {fileID: 409404467825305832}
   boidcoh: {fileID: 0}
   boidsep: {fileID: 0}
   seekScript: {fileID: 0}
   wanderingScript: {fileID: 0}
+  goingToMineScript: {fileID: 0}
+  vomitingScript: {fileID: 0}
+  fleeingScript: {fileID: 0}
+  isDrunk: 0
   maxSpeed: 0
   target: {fileID: 0}
   state: 0
@@ -170,6 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 635220651830226783}
+  DwarfList: []
 --- !u!1001 &8382462970781843766
 PrefabInstance:
   m_ObjectHideFlags: 0

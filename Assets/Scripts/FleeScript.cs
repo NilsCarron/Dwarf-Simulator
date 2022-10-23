@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class seek_script : MonoBehaviour
+public class FleeScript : MonoBehaviour
 {
     base_behavior bb;
     GameObject target;
@@ -12,19 +12,18 @@ public class seek_script : MonoBehaviour
     void Start()
     {
         bb = gameObject.GetComponent<base_behavior>();
-        target = GameManager.Instance.Tavern;
+        target = bb.target;
 
-        bb.boidcoh.enabled = false;
 
-        if(bb.seekScript == null)
+        if(bb.fleeingScript == null)
         {
 
             
             
-            bb.seekScript = gameObject.AddComponent<Seek>();
-            bb.seekScript.target = target;
-            bb.seekScript.weight = 0.7f;
-            bb.seekScript.enabled = true;
+            bb.fleeingScript = gameObject.AddComponent<Flee>();
+            bb.fleeingScript.target = bb.target;
+            bb.fleeingScript.weight = 0.7f;
+            bb.fleeingScript.enabled = true;
 
             
             if (bb.boidcoh == null)
@@ -47,7 +46,7 @@ public class seek_script : MonoBehaviour
         
     }
 
-    IEnumerator WaitRandomAmountOfSeconds()
+    /*IEnumerator WaitRandomAmountOfSeconds()
     {
         while (true)
         {
@@ -61,29 +60,21 @@ public class seek_script : MonoBehaviour
             bb.isDrunk = true;
             bb.changeState(UnitFSM.Idle);
         }
-    }
+    }*/
 
 
 
 
-    private void OnTriggerEnter(Collider collision)    {
-        if (collision.gameObject.CompareTag($"Tavern"))
-        {
-            Debug.Log("I'm beginning to drink");
-            coroutine = WaitRandomAmountOfSeconds();
-            StartCoroutine(coroutine);
-            
-        }
-    }
+
     private void OnDestroy()
     {
-        Destroy(bb.seekScript);
+        Destroy(bb.fleeingScript);
     }
     
 
     private void OnDrawGizmos()
     {
-        UnityEditor.Handles.Label(transform.position + Vector3.up * 3, "Seek");
+        UnityEditor.Handles.Label(transform.position + Vector3.up * 3, "Fleeing");
     }
 
 }

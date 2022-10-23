@@ -81,7 +81,7 @@ public class GoToMineScript : MonoBehaviour
     private void OnDestroy()
     {
 
-        DestroyImmediate(bb.goingToMineScript); 
+        Destroy(bb.goingToMineScript); 
         
     }
     

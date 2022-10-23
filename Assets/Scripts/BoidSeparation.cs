@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoidSeparation : Flee
+public class BoidSeparation : AgentBehavior
 {
     public float desiredSeparation = 15.0f;
 

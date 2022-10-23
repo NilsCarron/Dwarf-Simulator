@@ -8,18 +8,38 @@ using Random = System.Random;
 public class wandering_script : MonoBehaviour
 {
     base_behavior bb;
+    private bool isDrunk;
     GameObject target;
     public GameObject temporaryTarget;
+    private IEnumerator coroutine;
 
+    private float ampleurMovement;
     // Start is called before the first frame update
     void Start()
     {
+        ampleurMovement = 1.0f;
         bb = gameObject.GetComponent<base_behavior>();
+        isDrunk = bb.isDrunk;
         temporaryTarget = new GameObject("target");
         target = temporaryTarget;
+
         UpdateTarget();
 
+
+        if (isDrunk)
+        {
+            ampleurMovement = 0.05f;
+            coroutine = WaitRandomAmountOfSeconds();
+            StartCoroutine(coroutine);
+
+        }
         
+        
+        if(bb.boidcoh != null )
+            bb.boidcoh.enabled = true;
+        if(bb.boidsep != null )
+            bb.boidsep.enabled = true;
+
         if(bb.wanderingScript == null)
         {
             bb.wanderingScript = gameObject.AddComponent<Wandering>();
@@ -48,6 +68,24 @@ public class wandering_script : MonoBehaviour
         
     }
 
+    IEnumerator WaitRandomAmountOfSeconds()
+    {
+        while (true)
+        {
+            //Print the time of when the function is first called.
+
+            //yield on a new YieldInstruction that waits for 5 seconds.
+            yield return new WaitForSeconds((int)UnityEngine.Random.Range(1, 60));
+
+            //After we have waited 5 seconds print the time again.
+            Debug.Log("I don't feel so good");
+            bb.changeState(UnitFSM.Vomiting);//vomit
+        }
+    }
+
+
+
+
 
     private void Update()
     {
@@ -62,8 +100,10 @@ public class wandering_script : MonoBehaviour
     private void UpdateTarget()
     {
         Vector3 clampedVector;
-        clampedVector = new Vector3(UnityEngine.Random.Range(-200, 200) ,transform.transform.position.y, UnityEngine.Random.Range(-200, 200));
 
+        if(!isDrunk){
+        clampedVector = new Vector3(UnityEngine.Random.Range(-200, 200) ,transform.transform.position.y, UnityEngine.Random.Range(-200, 200));
+        
         if (clampedVector.x > 1500)
             clampedVector.x -= 200;
         else if (clampedVector.x < -1500)
@@ -78,10 +118,16 @@ public class wandering_script : MonoBehaviour
             clampedVector.z -=  200;
         else if (clampedVector.z < -1500)
             clampedVector.z +=  200;
-
+        }
+        else
+        {
+            Transform transform1;
+            clampedVector = new Vector3(transform.position.x + UnityEngine.Random.Range(-5, 5) ,(transform1 = transform).transform.position.y, transform1.position.z + UnityEngine.Random.Range(-5, 5));
+        }
 
 
         target.transform.position = clampedVector;
+        
     }
 
 
@@ -89,9 +135,9 @@ public class wandering_script : MonoBehaviour
 
     private void OnDestroy()
     {
-        DestroyImmediate(temporaryTarget); 
+        Destroy(temporaryTarget); 
 
-        DestroyImmediate(bb.wanderingScript); 
+        Destroy(bb.wanderingScript); 
         
     }
     

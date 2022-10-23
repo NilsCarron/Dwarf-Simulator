@@ -7,7 +7,9 @@ public  enum UnitFSM //states
     // Attack,
     Seek,
     Idle,
-    GotoMine
+    GotoMine,
+    Vomiting,
+    Flee
 }
 public class base_behavior : MonoBehaviour
 {
@@ -18,6 +20,8 @@ public class base_behavior : MonoBehaviour
     public seek_script seek;
     public wandering_script wandering;
     public GoToMineScript goToMine;
+    public VomitingScript vomiting;
+    public FleeScript fleeing;
 
 
     //gps is our general pathfinding script
@@ -30,7 +34,10 @@ public class base_behavior : MonoBehaviour
     public Seek seekScript;
     public Wandering wanderingScript;
     public GoingToMine goingToMineScript;
+    public Vomiting vomitingScript;
+    public Flee fleeingScript;
 
+    public bool isDrunk;
     
     public float maxSpeed;
 
@@ -42,6 +49,7 @@ public class base_behavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isDrunk = false;
         if (target == null)
         {
             target = gameObject;
@@ -86,8 +94,9 @@ public class base_behavior : MonoBehaviour
                 {
                     wandering = gameObject.AddComponent<wandering_script>();
                 }
-                DestroyImmediate(seek);
-                DestroyImmediate(goToMine);
+                Destroy(seek);
+                Destroy(goToMine);
+                Destroy(vomiting);
 
 
                 break;
@@ -98,8 +107,10 @@ public class base_behavior : MonoBehaviour
                 {
                     goToMine = gameObject.AddComponent<GoToMineScript>();
                 }
-                DestroyImmediate(seek);
-                DestroyImmediate(wandering);
+                Destroy(seek);
+                Destroy(wandering);
+                Destroy(vomiting);
+                Destroy(fleeing);
 
 
                 break;
@@ -109,21 +120,45 @@ public class base_behavior : MonoBehaviour
                 {
                     seek = gameObject.AddComponent<seek_script>();
                 }
-                DestroyImmediate(wandering);
-                DestroyImmediate(goToMine);
+                Destroy(wandering);
+                Destroy(goToMine);
+                Destroy(vomiting);
+                Destroy(fleeing);
 
 
                 break;
+            case UnitFSM.Vomiting:
 
-          //  case UnitFSM.Attack:
+                
+                if (gameObject.GetComponent<VomitingScript>() == null)
+                {
+                    vomiting = gameObject.AddComponent<VomitingScript>();
+                }
+                Destroy(seek);
+                Destroy(goToMine);
+                Destroy(wandering);
+                Destroy(fleeing);
 
 
-            //    DestroyImmediate(seek);
+                break;
+            case UnitFSM.Flee:
 
-              //  break;
+                
+                if (gameObject.GetComponent<FleeScript>() == null)
+                {
+                    fleeing = gameObject.AddComponent<FleeScript>();
+                }
+                Destroy(seek);
+                Destroy(goToMine);
+                Destroy(wandering);
+                Destroy(vomiting);
+
+                break;
 
 
 
         }
     }
 }
+
+
