@@ -22,10 +22,10 @@ public class Agent : MonoBehaviour
         trueMaxSpeed = maxSpeed;
     }
 
-    public void SetSteering(steering steer, float weight)
+    public void SetSteering(steering newSteer, float weight)
     {
-        this.steer.linear += (weight * steer.linear);
-        this.steer.angular += (weight * steer.angular);
+        this.steer.linear += (weight * newSteer.linear);
+        this.steer.angular += (weight * newSteer.angular);
     }
 
     // change the transform based off of the last frame's steering
@@ -67,9 +67,5 @@ public class Agent : MonoBehaviour
         steer = new steering();
     }
 
-    //used for speed matching when traveling in groups
-    public void speedReset()
-    {
-        maxSpeed = trueMaxSpeed;
-    }
+
 }

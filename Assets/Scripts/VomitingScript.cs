@@ -7,7 +7,7 @@ using Random = System.Random;
 
 public class VomitingScript : MonoBehaviour
 {
-    base_behavior bb;
+    BaseBehavior bb;
     private bool isDrunk;
     GameObject target;
     private IEnumerator coroutine;
@@ -16,7 +16,7 @@ public class VomitingScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bb = gameObject.GetComponent<base_behavior>();
+        bb = gameObject.GetComponent<BaseBehavior>();
 
 
         bb.boidcoh.enabled = false;
@@ -35,7 +35,10 @@ public class VomitingScript : MonoBehaviour
 
         }
         Debug.Log("I'm beginning to vomit!");
-        gameObject.tag = "sickDwarf";
+        bb.animator.SetBool("Vomiting", true);
+        bb.animator.SetBool("Walking", false);
+
+        gameObject.tag = "SickDwarf";
         coroutine = WaitRandomAmountOfSeconds();
         StartCoroutine(coroutine);
         
@@ -52,8 +55,11 @@ public class VomitingScript : MonoBehaviour
 
             //After we have waited 5 seconds print the time again.
             Debug.Log("I feel much better");
+            bb.animator.SetBool("Vomiting", false);
+            bb.animator.SetBool("Walking", true);
+
             bb.isDrunk = false;
-            gameObject.tag = "dwarf";
+            gameObject.tag = "Dwarf";
 
             bb.changeState(UnitFSM.Idle);
         }

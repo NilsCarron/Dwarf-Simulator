@@ -4,10 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - dwarf
-  - sickDwarf
   - Mine
   - Tavern
+  - Dwarf
+  - SickDwarf
+  - Decor
   layers:
   - Default
   - TransparentFX

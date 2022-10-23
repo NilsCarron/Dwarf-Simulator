@@ -7,7 +7,7 @@ using Random = System.Random;
 
 public class GoToMineScript : MonoBehaviour
 {
-    base_behavior bb;
+    BaseBehavior bb;
     GameObject target;
     private IEnumerator coroutine;
 
@@ -15,7 +15,7 @@ public class GoToMineScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bb = gameObject.GetComponent<base_behavior>();
+        bb = gameObject.GetComponent<BaseBehavior>();
         target = GameManager.Instance.Mine;
         rb = gameObject.GetComponent<Rigidbody>();
         
@@ -30,7 +30,7 @@ public class GoToMineScript : MonoBehaviour
             if (bb.boidcoh == null)
             {
                 bb.boidcoh = gameObject.AddComponent<BoidCohesion>();
-                bb.boidcoh.targets = bb.target.GetComponent<squad_parent_script>().children;
+                bb.boidcoh.targets = bb.target.GetComponent<SquadParentScript>().children;
                 bb.boidcoh.weight = 0.50f;
                 bb.boidcoh.enabled = true;
             }
@@ -38,7 +38,7 @@ public class GoToMineScript : MonoBehaviour
             if (bb.boidsep == null)
             {
                 bb.boidsep = gameObject.AddComponent<BoidSeparation>();
-                bb.boidsep.targets = bb.target.GetComponent<squad_parent_script>().children;
+                bb.boidsep.targets = bb.target.GetComponent<SquadParentScript>().children;
                 bb.boidsep.weight = 70.0f;
                 bb.boidsep.enabled = true;
             }

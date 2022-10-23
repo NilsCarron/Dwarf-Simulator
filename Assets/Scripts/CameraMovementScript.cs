@@ -9,7 +9,7 @@ public class CameraMovementScript : MonoBehaviour
     float zoomSpeed = 10.0f;
     float roateSpeed = 0.1f;
     float maxHeight = 40;
-    float minHeight = 4;
+    float minHeight = -30;
     Vector2 p1;
     Vector2 p2;
 
@@ -25,12 +25,12 @@ public class CameraMovementScript : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            speed = 0.06f;
+            speed = 10f;
             zoomSpeed = 20.0f;
         }
         else
         {
-            speed = 0.035f;
+            speed = 5f;
             zoomSpeed = 10.0f;
 
         }

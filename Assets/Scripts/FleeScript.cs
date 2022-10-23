@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class FleeScript : MonoBehaviour
 {
-    base_behavior bb;
+    BaseBehavior bb;
     GameObject target;
     private IEnumerator coroutine;
 
     // Start is called before the first frame update
     void Start()
     {
-        bb = gameObject.GetComponent<base_behavior>();
+        bb = gameObject.GetComponent<BaseBehavior>();
         target = bb.target;
 
 
@@ -29,7 +29,7 @@ public class FleeScript : MonoBehaviour
             if (bb.boidcoh == null)
             {
                 bb.boidcoh = gameObject.AddComponent<BoidCohesion>();
-                bb.boidcoh.targets = bb.target.GetComponent<squad_parent_script>().children;
+                bb.boidcoh.targets = bb.target.GetComponent<SquadParentScript>().children;
                 bb.boidcoh.weight = 0.0f;
                 bb.boidcoh.enabled = false;
             }
@@ -37,7 +37,7 @@ public class FleeScript : MonoBehaviour
             if (bb.boidsep == null)
             {
                 bb.boidsep = gameObject.AddComponent<BoidSeparation>();
-                bb.boidsep.targets = bb.target.GetComponent<squad_parent_script>().children;
+                bb.boidsep.targets = bb.target.GetComponent<SquadParentScript>().children;
                 bb.boidsep.weight = 15f;
                 bb.boidsep.enabled = false;
             }
